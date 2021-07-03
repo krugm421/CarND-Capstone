@@ -83,8 +83,8 @@ class WaypointUpdater(object):
 
     def waypoints_cb(self, waypoints):
         self.__base_waypoints = waypoints
-        if not self.__base_waypoints_2d:
-            self.__waypints_2d = [[waypoint.pose.pose.position.x, waypoint.pose.pose.position.y] for waypoint in waypoints.waypoint]
+        if not self.__waypoints_2d:
+            self.__waypoints_2d = [[waypoint.pose.pose.position.x, waypoint.pose.pose.position.y] for waypoint in waypoints.waypoints]
             self.__waypoint_tree = KDTree(self.__waypoints_2d)
 
     def traffic_cb(self, msg):
