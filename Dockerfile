@@ -13,11 +13,12 @@ RUN sh -c 'echo "yaml http://packages.dataspeedinc.com/ros/ros-public-'$ROS_DIST
 RUN rosdep update
 RUN apt-get install -y ros-$ROS_DISTRO-dbw-mkz
 RUN apt-get upgrade -y
+RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 # end installing Dataspeed DBW
 
 # install python packages
 RUN apt-get install -y python-pip
-RUN pip install --upgrade pip
+# RUN pip install --upgrade pip
 COPY requirements.txt ./requirements.txt
 RUN pip install -r requirements.txt
 
