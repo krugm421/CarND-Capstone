@@ -31,12 +31,12 @@ class Controller(object):
         self.min_speed = min_speed
 
         # controller parameters longitudinal controller
-        P_long = 0.1
+        P_long = 0.05
         I_long = 0.008
         D_long = 0.005
         # controller parameters lateral controller
-        P_lat = 10
-        I_lat = 0.0001
+        P_lat = 1
+        I_lat = 0.01
         D_lat = 0.1
 
 
@@ -66,17 +66,19 @@ class Controller(object):
                 brake_command = 700 # Apply 700 Nm torque to hold car in position if in standby
                 throttle_command = 0
             elif controller_command_long <= 0.05 and vel_controll_error < 0:
+            #elif vel_controll_error < 0:
                 # Negative controller command == braking
                 # Has to be converted to to a torque first
-                brake_command = max(vel_controll_error, self.decel_limit) * self.vehicle_mass * self.wheel_radius
+                brake_command = - max(vel_controll_error, self.decel_limit) * self.vehicle_mass * self.wheel_radius
                 throttle_command = 0
             else:
                 brake_command = 0
                 throttle_command = controller_command_long
 
             #### Lateral control ####
+            rospy.loginfo('Input yaw controller: l_vel = %f, a_vel = %f, c_vel = %f', linear_vel, angular_vel, current_vel)
             steering_angle_controll_error = self.__yaw_controller.get_steering(linear_vel, angular_vel, current_vel)
-            #controller_command_lat = self.__controller_lateral.step(steering_angle_controll_error, 0.02)
+            steering_angle_controll_error = self.__controller_lateral.step(steering_angle_controll_error, 0.02)
             controller_command_lat = steering_angle_controll_error
 
         else:

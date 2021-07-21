@@ -30,6 +30,16 @@ Run the docker file
 docker run -p 4567:4567 -v $PWD:/capstone -v /tmp/log:/root/.ros/ --rm -it capstone
 ```
 
+Or with GUI support
+```bash
+docker run -p 4567:4567 -v $PWD:/capstone -v /tmp/log:/root/.ros/ --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix -it capstone
+```
+
+Make sure that the docker container is allowed to access Xhost on the native os
+```bash
+xhost +local:docker
+```
+
 ### Port Forwarding
 To set up port forwarding, please refer to the "uWebSocketIO Starter Guide" found in the classroom (see Extended Kalman Filter Project lesson).
 

@@ -16,6 +16,12 @@ RUN apt-get upgrade -y
 RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 # end installing Dataspeed DBW
 
+# Installing Ros utilities
+RUN rosdep update
+RUN sudo apt-get install -y ros-$ROS_DISTRO-rqt
+RUN sudo apt-get install -y ros-$ROS_DISTRO-rqt-common-plugins
+# End Installing Ros utilities
+
 # install python packages
 RUN apt-get install -y python-pip
 # RUN pip install --upgrade pip
@@ -29,6 +35,8 @@ RUN apt-get install -y ros-$ROS_DISTRO-image-proc
 
 # socket io
 RUN apt-get install -y netbase
+
+
 
 RUN mkdir /capstone
 VOLUME ["/capstone"]
