@@ -31,8 +31,8 @@ class Controller(object):
         self.min_speed = min_speed
 
         # controller parameters longitudinal controller
-        P_long = 0.05
-        I_long = 0.008
+        P_long = 0.1
+        I_long = 0.003
         D_long = 0.005
         # controller parameters lateral controller
         P_lat = 1
